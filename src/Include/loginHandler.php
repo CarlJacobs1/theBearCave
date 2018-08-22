@@ -2,12 +2,10 @@
 
 require "../Composer/vendor/autoload.php";
 
-use Classes\users;
 use Classes\userLogin;
 
 if (isset($_POST['login'])) {
-    #require_once '../Classes/userLogin.php';
-    $user = new userLogin($_POST['username'], $_POST['password']);
+    $user     = new userLogin($_POST['username'], $_POST['password']);
     $user->userLogin();
     #check if the user could be matched to a username in the system.
     if ($user->loggedIn == false) {

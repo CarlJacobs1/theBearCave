@@ -19,7 +19,7 @@ VALUES
 , NULL 
 , 'system'
 , 'system'
-, 'system@1'
+, '$2y$10$NerRX2jeUkefVTpJHBsqQuXOzR93bISUHGidaY5oXMZvSFVmYyUmG'
 , '1'
 , '0'
 , 'active'

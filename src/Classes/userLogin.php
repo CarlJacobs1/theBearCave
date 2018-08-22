@@ -30,7 +30,7 @@ use Classes\systemConfig;
                 $this->loggedIn = '1';
                 return $this;
             }
-            if ($this->password == $this->providedPassword) {
+            if (password_verify($this->providedPassword, $this->password)) {
                 $this->createUserLoginHistory();
                 $this->failed_login_attempts = 0;
                 $this->updateFailedLoginAttempts();
