@@ -73,6 +73,15 @@ use Classes\systemConfig;
         return $loginAttempts;
     }
 
+    public function setUserLoginSession(){
+        session_start();
+        $_SESSION['username']   = $this->username;
+        $_SESSION['first_name'] = $this->first_name;
+        $_SESSION['last_name']  = $this->last_name;
+        $_SESSION['id']         = $this->id;
+        $_SESSION['login_time'] = strtotime('+20 minutes', strtotime(date('d-m-Y H:i:s')));
+    }
+
 }
 
 ?>

@@ -18,12 +18,7 @@ if (isset($_POST['login'])) {
         echo '<p>Maximum Number of Password Retries Reached.</p>';
         #log the user in
     } elseif ($user->loggedIn == '2') {
-        session_start();
-        $_SESSION['username']   = $user->username;
-        $_SESSION['first_name'] = $user->first_name;
-        $_SESSION['last_name']  = $user->last_name;
-        $_SESSION['id']         = $user->id;
-        $_SESSION['login_time'] = strtotime('+20 minutes', strtotime(date('d-m-Y H:i:s')));
+        $user->setUserLoginSession();
         header("Location: home.php");
     }
 }
