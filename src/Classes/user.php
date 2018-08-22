@@ -8,9 +8,6 @@ require_once '../Include/dbConnection.php';
 #require_once '/systemConfig.php';
 #require_once '/userCreationTokens.php';
 #require_once '/email.php';
-use Classes\email;
-use Classes\systemConfig;
-use Classes\userCreationToken;
 
 /**
  *
@@ -23,10 +20,6 @@ class user {
     const USER_STATUS_PENDING     = 'pending_activation';
     const USER_STATUS_DEACTIVATED = 'deactivated';
 
-
-
-
-
     public $id;
     public $first_name;
     public $second_name;
@@ -36,9 +29,6 @@ class user {
     public $active_ind;
     public $failed_login_attempts;
     public $status;
-
-
-    
 
     public function getUserByUsername($inputUsername) {
         $sql = "CALL getUserByUsername ( ";
@@ -53,6 +43,7 @@ class user {
             $this->username              = $user->username;
             $this->password              = $user->password;
             $this->active_ind            = $user->active_ind;
+            $this->status                = $user->status;
             $this->failed_login_attempts = $user->failed_login_attempts;
         }
 
@@ -83,7 +74,5 @@ class user {
 
         $this->id = $id->id;
     }
-
-   
 
 }

@@ -6,7 +6,7 @@
 DROP PROCEDURE IF EXISTS getUserByUsername;
 CREATE PROCEDURE getUserByUsername( IN in_username varchar(100))
 BEGIN
-	SELECT 
+	SELECT
 	  id
 	, first_name
 	, second_name
@@ -14,9 +14,10 @@ BEGIN
 	, username
 	, `password`
 	, active_ind
+	, status
 	, failed_login_attempts
 	FROM users
-	WHERE username = in_username;	
+	WHERE username = in_username;
 END ;
 
 DROP PROCEDURE IF EXISTS createUserLoginHistory;
@@ -32,16 +33,16 @@ BEGIN
 	, in_user_id
 	, in_date
 	, in_description);
-END 
+END
 
-	
+
 DROP PROCEDURE IF EXISTS updateUserFailedLoginAttempt;
 CREATE PROCEDURE updateUserFailedLoginAttempt(IN in_id varchar(36),IN in_failed_login_attempts int)
 BEGIN
 	UPDATE users
 	SET failed_login_attempts = in_failed_login_attempts
 	WHERE id = in_id;
-END 
+END
 
 DROP PROCEDURE IF EXISTS usersCreate;
 CREATE PROCEDURE usersCreate ( OUT out_id varchar(36)
@@ -55,8 +56,8 @@ CREATE PROCEDURE usersCreate ( OUT out_id varchar(36)
                              , IN in_status varchar(100)
                              )
 BEGIN
-	SET out_id = uuid(); 
-	INSERT INTO users 
+	SET out_id = uuid();
+	INSERT INTO users
 	( id
 	, first_name
 	, second_name
@@ -78,7 +79,7 @@ BEGIN
 	, in_failed_login_attempts
 	, in_status
 	);
-END 
+END
 
 DROP PROCEDURE IF EXISTS userCreationTokensCreate;
 CREATE PROCEDURE userCreationTokensCreate( IN in_user_id varchar(36)
@@ -87,11 +88,11 @@ CREATE PROCEDURE userCreationTokensCreate( IN in_user_id varchar(36)
                                          , OUT out_token varchar(36)
                                          )
 BEGIN
-	
+
 	SET out_id = uuid();
 	SET out_token = uuid();
-	
-	
+
+
 	INSERT INTO user_creation_tokens
 	( id
 	, token
@@ -103,7 +104,7 @@ BEGIN
 	, out_token
 	, in_user_id
 	, in_expiry_date);
-END 
+END
 
 
 ##########################################################################################################################
@@ -118,7 +119,7 @@ BEGIN
 	SELECT *
 	FROM system_config
 	WHERE id = in_id;
-END 
+END
 
 DROP PROCEDURE IF EXISTS getSystemConfigBySystemConfigGroupId;
 CREATE PROCEDURE getSystemConfigBySystemConfigGroupId(IN in_system_config_group_id varchar(36))

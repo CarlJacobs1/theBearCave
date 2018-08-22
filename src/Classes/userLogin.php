@@ -3,12 +3,10 @@ namespace Classes;
 require '../Composer/vendor/autoload.php';
 require_once '../Include/dbConnection.php';
 
-use Classes\user;
 use Classes\systemConfig;
+use Classes\user;
 
-
-
- class userLogin extends user {
+class userLogin extends user {
     Public $providedUsername;
     Public $providedPassword;
     Public $loggedIn;
@@ -68,12 +66,12 @@ use Classes\systemConfig;
         $sql = "call getSystemConfigById( '";
         $sql .= systemConfig::SYS_CONF_MAX_LOGIN_ATTEMPTS;
         $sql .= "');";
-        $conn = executeQuery($sql);
+        $conn          = executeQuery($sql);
         $loginAttempts = $conn->fetchAll();
         return $loginAttempts;
     }
 
-    public function setUserLoginSession(){
+    public function setUserLoginSession() {
         session_start();
         $_SESSION['username']   = $this->username;
         $_SESSION['first_name'] = $this->first_name;
