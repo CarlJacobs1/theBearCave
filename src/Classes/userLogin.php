@@ -28,6 +28,14 @@ class userLogin extends user {
                 $this->loggedIn = '1';
                 return $this;
             }
+            if ($this->status == user::USER_STATUS_PENDING) {
+                $this->loggedIn = '3';
+                return $this;
+            }
+            if ($this->status == user::USER_STATUS_DEACTIVATED) {
+                $this->loggedIn = '4';
+                return $this;
+            }
             if (password_verify($this->providedPassword, $this->password)) {
                 $this->createUserLoginHistory();
                 $this->failed_login_attempts = 0;
