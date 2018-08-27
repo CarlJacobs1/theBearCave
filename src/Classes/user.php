@@ -36,16 +36,45 @@ class user {
         $result = executeQuery($sql);
         $user   = $result->fetchObject(__NAMESPACE__ . '\\user');
         if (isset($user->id)) {
-            $this->id                    = $user->id;
-            $this->first_name            = $user->first_name;
-            $this->second_name           = $user->second_name;
-            $this->last_name             = $user->last_name;
-            $this->username              = $user->username;
-            $this->password              = $user->password;
-            $this->active_ind            = $user->active_ind;
-            $this->status                = $user->status;
-            $this->failed_login_attempts = $user->failed_login_attempts;
+            $this->mapUserFeields($user);
         }
+
+    }
+    public function userUpdateById(){
+        $sql = "call userUpdateById( ";
+        $sql .= "'$this->id',";
+        $sql .= "'$this->first_name',";
+        $sql .= "'$this->second_name',";
+        $sql .= "'$this->last_name',";
+        $sql .= "'$this->username',";
+        $sql .= "'$this->password',";
+        $sql .= "'$this->active_ind',";
+        $sql .= "'$this->failed_login_attempts',";
+        $sql .= "'$this->status'";
+        $sql .= ");";
+        $result = executeQuery($sql);
+    }
+
+    public function userGetById(){
+        $sql = "call userGetById( ";
+        $sql .= "'$this->id'";
+        $sql .= ");";
+        $result = executeQuery($sql);
+        $user   = $result->fetchObject(__NAMESPACE__ . '\\user');
+        $this->mapUserFeields($user);
+
+    }
+
+    public function mapUserFeields($user) {
+        $this->id                    = $user->id;
+        $this->first_name            = $user->first_name;
+        $this->second_name           = $user->second_name;
+        $this->last_name             = $user->last_name;
+        $this->username              = $user->username;
+        $this->password              = $user->password;
+        $this->active_ind            = $user->active_ind;
+        $this->status                = $user->status;
+        $this->failed_login_attempts = $user->failed_login_attempts;
 
     }
 

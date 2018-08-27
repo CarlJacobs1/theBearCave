@@ -20,6 +20,35 @@ BEGIN
 	WHERE username = in_username;
 END ;
 
+
+DROP PROCEDURE IF EXISTS userUpdateById;
+CREATE PROCEDURE userUpdateById( IN in_id varchar(100)
+                               , in_first_name varchar(100)
+                               , in_second_name varchar(100)
+                               , in_last_name varchar(100)
+                               , in_username varchar(100)
+                               , in_password varchar(100)
+                               , in_active_ind varchar(1)
+                               , in_failed_login_attempts int
+                               , in_status varchar(100)
+                               )
+BEGIN
+	update users
+	SET 
+	  first_name = in_first_name
+	, second_name = in_second_name
+    , last_name = in_last_name
+    , username = in_username
+    , password = in_password
+    , active_ind = in_active_ind
+    , failed_login_attempts = in_failed_login_attempts
+    , status = in_status
+	WHERE id = in_id;
+END ;
+
+
+
+
 DROP PROCEDURE IF EXISTS createUserLoginHistory;
 CREATE PROCEDURE createUserLoginHistory( IN in_id varchar(36),IN in_user_id varchar(36),IN in_date datetime,IN in_description varchar(100))
 BEGIN
@@ -104,6 +133,16 @@ BEGIN
 	, out_token
 	, in_user_id
 	, in_expiry_date);
+END
+
+DROP PROCEDURE IF EXISTS userCreationTokenGetByToken;
+CREATE PROCEDURE userCreationTokenGetByToken( IN in_token varchar(36)
+                                         )
+BEGIN
+
+	SELECT *
+	FROM user_creation_tokens
+	WHERE token = in_token;
 END
 
 
