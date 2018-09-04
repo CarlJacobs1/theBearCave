@@ -22,11 +22,13 @@ class userCreation extends user {
         , $second_name
         , $last_name
         , $username
+        , $password
         , $creationMethod) {
         $this->first_name            = $first_name;
         $this->second_name           = $second_name;
         $this->last_name             = $last_name;
         $this->username              = $username;
+        $this->password              = password_hash($password,PASSWORD_BCRYPT);
         $this->active_ind            = '0';
         $this->failed_login_attempts = '0';
         $this->status                = user::USER_STATUS_PENDING;

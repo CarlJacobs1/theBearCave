@@ -5,6 +5,7 @@ require '../Composer/vendor/autoload.php';
 require_once '../Include/dbConnection.php';
 
 use Classes\systemConfig;
+use Classes\user;
 
 #require_once '/systemConfig.php';
  class userCreationToken {
@@ -38,6 +39,47 @@ use Classes\systemConfig;
         $timeString        = "+  $tokenExpirySysConfig->value hours";
         $this->expiry_date = date("Y-m-d H:i:s", strToTime($timeString));
 
+    }
+
+    public function validateUserCreationToken(){
+        $this->getUserCreationTokenByToken();
+
+        if (!isset($this->id)) {
+            return 'Token not found';
+        }
+
+        if ($this->expiry_date < date("Y-m-d H:i:s")) {
+            return 'Token expired.';
+        }
+
+        $user = new user();
+        $user->id = $this->user_id;
+        $user->userGetById();
+        $user->status = user::USERS_STATUS_ACTIVE;
+        $user->userUpdateById();
+        return 'User Activated.';
+
+    }
+
+    Public function getUserCreationTokenByToken(){
+        $conn = createConnection();
+        $querystring = "call userCreationTokenGetByToken( ";
+        $querystring .= "'$this->token'";
+        $querystring .= ");";
+        $result = executeQuery($querystring);
+        $userCreationToken = $result->fetchObject(__NAMESPACE__ . '\\userCreationToken');
+        if (isset($userCreationToken->id)) {
+            $this->mapUserCreationTokenFields($userCreationToken);
+        }
+        
+
+    }
+
+    Public function mapUserCreationTokenFields($userCreationToken){
+        $this->id = $userCreationToken->id;
+        $this->token = $userCreationToken->token;
+        $this->user_id = $userCreationToken->user_id;
+        $this->expiry_date = $userCreationToken->expiry_date;
     }
 }
 
