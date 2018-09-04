@@ -3,12 +3,10 @@ namespace Classes;
 require '../Composer/vendor/autoload.php';
 require_once '../Include/dbConnection.php';
 
-use Classes\user;
 use Classes\systemConfig;
+use Classes\user;
 
-
-
- class userLogin extends user {
+class userLogin extends user {
     Public $providedUsername;
     Public $providedPassword;
     Public $loggedIn;
@@ -30,7 +28,15 @@ use Classes\systemConfig;
                 $this->loggedIn = '1';
                 return $this;
             }
-            if ($this->password == $this->providedPassword) {
+            if ($this->status == user::USER_STATUS_PENDING) {
+                $this->loggedIn = '3';
+                return $this;
+            }
+            if ($this->status == user::USER_STATUS_DEACTIVATED) {
+                $this->loggedIn = '4';
+                return $this;
+            }
+            if (password_verify($this->providedPassword, $this->password)) {
                 $this->createUserLoginHistory();
                 $this->failed_login_attempts = 0;
                 $this->updateFailedLoginAttempts();
@@ -68,9 +74,18 @@ use Classes\systemConfig;
         $sql = "call getSystemConfigById( '";
         $sql .= systemConfig::SYS_CONF_MAX_LOGIN_ATTEMPTS;
         $sql .= "');";
-        $conn = executeQuery($sql);
+        $conn          = executeQuery($sql);
         $loginAttempts = $conn->fetchAll();
         return $loginAttempts;
+    }
+
+    public function setUserLoginSession() {
+        session_start();
+        $_SESSION['username']   = $this->username;
+        $_SESSION['first_name'] = $this->first_name;
+        $_SESSION['last_name']  = $this->last_name;
+        $_SESSION['id']         = $this->id;
+        $_SESSION['login_time'] = strtotime('+20 minutes', strtotime(date('d-m-Y H:i:s')));
     }
 
 }

@@ -1,11 +1,13 @@
 <?php
 require "../Composer/vendor/autoload.php";
 use Classes\userCreation;
+
 if (isset($_POST['createUser'])) {
     $user = new userCreation($_POST['first_name']
         , $_POST['second_name']
         , $_POST['last_name']
         , $_POST['username']
+        , $_POST['password']
         , userCreation::USER_CREATION_METHOD_EMAIL);
 
     $errors = $user->validateProvidedData();
