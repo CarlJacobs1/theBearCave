@@ -48,4 +48,9 @@ if (isset($_GET['token'])) {
         echo '<p>Your user has been activated.</p>';
     }
 }
+
+if(isset($_GET['logout'])){
+    session_start();
+    session_unset();
+}
 ?>
