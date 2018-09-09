@@ -5,6 +5,7 @@
 	<link rel="icon" type="image/png" href="../favIcon.png">
 	<link rel="stylesheet" href="./CSS/material.min.css">
 	<script src="./CSS/material.min.js"></script>
+	<script src="./JS/Utils/ajax.js"></script>
 	<script src="./JS/User/userLogin.js"></script>
 </head>
 <body>
