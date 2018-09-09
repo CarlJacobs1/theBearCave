@@ -1,6 +1,6 @@
 <?php
 
-require "../Composer/vendor/autoload.php";
+require "../../Composer/vendor/autoload.php";
 
 use Classes\userCreationToken;
 use Classes\userLogin;
@@ -11,23 +11,23 @@ if (isset($_POST['login'])) {
 
     #check if the user could be matched to a username in the system.
     if ($user->loggedIn == false) {
-        echo '<p>Incorrect username or password.</p>';
+        echo 'Incorrect username or password.';
         #check whether the user is inactive
     } elseif ($user->status == userLogin::USER_STATUS_DEACTIVATED) {
-        echo '<p>User is deactivated.</p>';
+        echo 'User is deactivated.';
         #check if the maxuimum number of login attempts have been reached for the user
     } elseif ($user->loggedIn == '1') {
-        echo '<p>Maximum number of password retries reached.</p>';
+        echo 'Maximum number of password retries reached.';
         #log the user in
     } elseif ($user->loggedIn == '3') {
-        echo '<p>User is pending activation.</p>';
+        echo 'User is pending activation.';
         #log the user in
     } elseif ($user->loggedIn == '4') {
-        echo '<p>User is currently deactivated.</p>';
+        echo 'User is currently deactivated.';
         #log the user in
     } elseif ($user->loggedIn == '2') {
         $user->setUserLoginSession();
-        header("Location: home.php");
+        echo 'User successfully logged in';
     }
 }
 
@@ -47,5 +47,10 @@ if (isset($_GET['token'])) {
     if ($tokenValidationFeedback == 'User Activated.') {
         echo '<p>Your user has been activated.</p>';
     }
+}
+
+if(isset($_GET['logout'])){
+    session_start();
+    session_unset();
 }
 ?>
