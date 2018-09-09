@@ -4,7 +4,7 @@
 	<title>New User Registration</title>
 	<link rel="stylesheet" href="./CSS/material.min.css">
 	<script src="./CSS/material.min.js"></script>
-	<script  src="./JS/NewUser/newUser.js"></script>	
+	<script  src="./JS/User/newUser.js"></script>	
 </head>
 <body>
 	<div class="mdl-layout mdl-js-layout">

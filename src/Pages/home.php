@@ -8,6 +8,8 @@ require_once('../Include/LoginSessionHandler.php');
 	<link rel="stylesheet" href="./CSS/material.min.css">
 	<script src="./CSS/material.min.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!--<link rel="icon" type="image/png" href="../favIcon.png">-->
+
 </head>
 <body>
   <div class="mdl-layout mdl-js-layout">
@@ -29,11 +31,9 @@ require_once('../Include/LoginSessionHandler.php');
     </div>
     <main class="mdl-layout__content">
 
-
-
       <div class="mdl-grid">
        <div class="mdl-cell mdl-cell--4--col">
-         <div class="mdl-card mdl-shadow--6dp">
+         <div class="mdl-card mdl-shadow--6dp" style="overflow:visible;">
           <div class="mdl-card__title mdl-color--primary mdl-color-text--white" >
             <h2 class="mdl-card__title-text"><i class="material-icons">build</i>&nbsp;&nbsp;Maintenance</h2>
           </div>

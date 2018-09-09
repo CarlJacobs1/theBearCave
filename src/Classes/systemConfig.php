@@ -1,8 +1,8 @@
 <?php
 
 namespace Classes;
-require '../Composer/vendor/autoload.php';
-require_once '../Include/dbConnection.php';
+require '../../Composer/vendor/autoload.php';
+require_once '../../Include/dbConnection.php';
 
 class systemConfig {
 

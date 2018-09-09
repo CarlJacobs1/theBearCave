@@ -1,17 +1,39 @@
-<?php
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Testing</title>
+</head>
+<body>
 
-require"../Composer/vendor/autoload.php";
+	<script>
+		function test()
+		{
+			var $username = document.getElementById('username').value;
+			var $password = document.getElementById('password').value;
+			var $passedorfailed = document.getElementById('passedorfailed');
+			$passedorfailed.removeAttribute('hidden', 'hidden');
+			$passedorfailed.innerHTML = 'loading';
+			var $ajax_request = new XMLHttpRequest();
+			$ajax_request.onreadystatuschange = function(){
+				if(this.readystate == 4 && this.status == '200'){
+					passedorfailed.innerHTML = this.responseText;
+				}
+			};
 
-use Classes\email;
+			$ajax_request.open("POST", "./Include/loginHandler.php", true);
+			$ajax_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			$ajax_request.send("login=login&username=" + $username + "&password=" + $password);
+			console.log('Message Sent');
+		}
+	</script>
 
-$hash = password_hash("system@1", PASSWORD_BCRYPT);
-echo $hash."\n";
+	<input type="text" name="username" id="username">
+	<input type="text" name="password" id="password">
+	<input type="submit" name="login" id="login" onclick="test();">
 
-if (password_verify('system@1', $hash)) {
-	echo 'Valid Password. Password is: ' . 'system@1';
-} else {
-	echo 'Invalid Password';
-}
+	<label id="passedorfailed" name="passedorfailed" hidden="hidden"></label>
 
 
-?>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 <?php
 
 namespace Classes;
-require '../Composer/vendor/autoload.php';
+require '../../Composer/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
