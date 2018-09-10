@@ -1,6 +1,7 @@
 <?php
-require "../Composer/vendor/autoload.php";
+
 use Classes\userCreation;
+require $_SERVER['DOCUMENT_ROOT'] ."/Composer/vendor/autoload.php";
 
 if (isset($_POST['createUser'])) {
     $user = new userCreation($_POST['first_name']

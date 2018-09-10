@@ -1,9 +1,8 @@
 <?php
-
 namespace Classes;
-require '../../Composer/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] .'/Composer/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] .'/Include/dbConnection.php';
 
-require_once '../../Include/dbConnection.php';
 
 #require_once '/systemConfig.php';
 #require_once '/userCreationTokens.php';
@@ -36,7 +35,7 @@ class user {
         $result = executeQuery($sql);
         $user   = $result->fetchObject(__NAMESPACE__ . '\\user');
         if (isset($user->id)) {
-            $this->mapUserFeields($user);
+            $this->mapUserFields($user);
         }
 
     }
@@ -61,11 +60,11 @@ class user {
         $sql .= ");";
         $result = executeQuery($sql);
         $user   = $result->fetchObject(__NAMESPACE__ . '\\user');
-        $this->mapUserFeields($user);
+        $this->mapUserFields($user);
 
     }
 
-    public function mapUserFeields($user) {
+    public function mapUserFields($user) {
         $this->id                    = $user->id;
         $this->first_name            = $user->first_name;
         $this->second_name           = $user->second_name;

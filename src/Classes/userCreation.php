@@ -1,7 +1,9 @@
 <?php
 namespace Classes;
-require '../../Composer/vendor/autoload.php';
-require_once '../../Include/dbConnection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] .'/Composer/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] .'/Include/dbConnection.php';
+
+
 
 use Classes\user;
 use Classes\userCreationToken;

@@ -1,17 +1,21 @@
 <!DOCTYPE html>
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Pages/Include/LoginHandler.php';
+?>
 <html>
 <head>
 	<title>The Bear Cave Login</title>
 	<link rel="icon" type="image/png" href="../favIcon.png">
 	<link rel="stylesheet" href="./CSS/material.min.css">
+	<link rel="stylesheet" href="./CSS/general.css">
 	<script src="./CSS/material.min.js"></script>
 	<script src="./JS/Utils/ajax.js"></script>
 	<script src="./JS/User/userLogin.js"></script>
 </head>
 <body>
 
-	<div class="mdl-layout mdl-js-layout">
-		<div class="mdl-card mdl-shadow--6dp">
+	<div class="mdl-layout mdl-js-layout" >
+		<div class="mdl-card mdl-shadow--6dp center">
 			<div class="mdl-card__title mdl-color--primary mdl-color-text--white" >
 				<h2 class="mdl-card__title-text">Bear Cave Entrance</h2>
 			</div>

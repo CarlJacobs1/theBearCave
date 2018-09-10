@@ -1,6 +1,6 @@
-<?php
+    <?php
 
-require "../../Composer/vendor/autoload.php";
+require_once  $_SERVER['DOCUMENT_ROOT'] ."/Composer/vendor/autoload.php";
 
 use Classes\userCreationToken;
 use Classes\userLogin;
@@ -29,6 +29,7 @@ if (isset($_POST['login'])) {
         $user->setUserLoginSession();
         echo 'User successfully logged in';
     }
+    
 }
 
 if (isset($_GET['token'])) {

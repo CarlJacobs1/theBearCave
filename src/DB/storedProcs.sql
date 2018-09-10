@@ -167,3 +167,32 @@ BEGIN
 	FROM system_config
 	WHERE system_config_group_id = in_system_config_group_id;
 END
+
+
+##########################################################################################################################
+##########################################################################################################################
+############################################*****User Stats*****##########################################################
+##########################################################################################################################
+##########################################################################################################################
+DROP PROCEDURE IF EXISTS userGetLoginStats;
+CREATE PROCEDURE userGetLoginStats( IN in_user_id varchar(36))
+BEGIN
+	DECLARE total_open_maintenance_requests int;
+	DECLARE total_open_maintenance_requests_for_user int;
+	
+	SET total_open_maintenance_requests = (SELECT count(*) 
+	                                      FROM maintenance_requests a
+	                                      INNER JOIN user_maintenance_groups b
+	                                            ON a.maintenance_request_group_id = b.maintenance_request_group_id
+	                                            AND b.user_id = in_user_id
+	                                      WHERE a.status = 'active');
+	SET total_open_maintenance_requests_for_user = (SELECT count(*) 
+	                                      FROM maintenance_requests a
+	                                      INNER JOIN user_maintenance_groups b
+	                                            ON a.maintenance_request_group_id = b.maintenance_request_group_id
+	                                            AND b.user_id = in_user_id
+	                                      WHERE a.status = 'active'
+	                                      AND create_user_id = in_user_id); 
+	SELECT   total_open_maintenance_requests
+	       , total_open_maintenance_requests_for_user;
+END;

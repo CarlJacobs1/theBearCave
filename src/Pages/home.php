@@ -1,5 +1,6 @@
 <?php
-require_once('../Include/LoginSessionHandler.php');
+require_once  $_SERVER['DOCUMENT_ROOT'] . '/Pages/Include/LoginSessionHandler.php';
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,6 +30,14 @@ require_once('../Include/LoginSessionHandler.php');
         <a class="mdl-navigation__link" href="#">User Details</a>
       </nav>
     </div>
+
+    <?php
+      use Classes\userStats; 
+
+      $userStats = new userStats();
+      $userStats->getHomePageStatistics($session_id);
+      var_dump($userStats);
+    ?>
     <main class="mdl-layout__content">
 
       <div class="mdl-grid">

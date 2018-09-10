@@ -1,7 +1,8 @@
 <?php
-
 namespace Classes;
-require '../../Composer/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] .'/Composer/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] .'/Include/dbConnection.php';
+
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;

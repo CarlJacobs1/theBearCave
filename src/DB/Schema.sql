@@ -85,3 +85,136 @@ CREATE TABLE user_creation_tokens
 , INDEX user_id(user_id)
 , INDEX expiry_date(expiry_date)
 );
+
+DROP TABLE IF EXISTS user_maintenance_groups;
+CREATE TABLE user_maintenance_groups 
+( id                                      varchar(36) NOT NULL PRIMARY KEY 
+, user_id                                 varchar(36) NOT NULL 
+, maintenance_request_group_id            varchar(36) NOT NULL 
+, INDEX user_maintenance_groups(user_id, maintenance_request_group_id)
+, FOREIGN KEY (user_id) REFERENCES users(id)
+, FOREIGN KEY (maintenance_request_group_id) REFERENCES maintenance_request_groups(id)
+);
+
+#####################################################################################################
+#####################################################################################################
+#maintenance_requests
+#####################################################################################################
+#####################################################################################################
+#maintenance_request_groups
+DROP TABLE IF EXISTS maintenance_request_groups;
+CREATE TABLE maintenance_request_groups
+( id varchar(36) PRIMARY KEY 
+, name varchar(100)
+, description text
+, create_date datetime
+, create_user_id varchar(36)
+, last_update_date datetime
+, last_update_user_id varchar(36)
+, status varchar(50)
+, INDEX name(name)
+, INDEX status(status)
+, FOREIGN KEY (create_user_id) REFERENCES users(id)
+, FOREIGN KEY (last_update_user_id) REFERENCES users(id)
+);
+
+#maintenance_requests
+DROP TABLE IF EXISTS maintenance_requests;
+CREATE TABLE maintenance_requests
+( id varchar(36) PRIMARY key
+, name varchar(255)
+, description text
+, maintenance_request_group_id varchar(36)
+, priority varchar(50)
+, location varchar(255)
+, request_start_date datetime
+, create_date datetime
+, create_user_id varchar(36)
+, last_update_date datetime
+, last_update_user_id varchar(36)
+, status varchar(50)
+, INDEX name(name)
+, INDEX priority(priority)
+, INDEX status(status)
+, FOREIGN KEY (maintenance_request_group_id) REFERENCES maintenance_request_groups(id)
+, FOREIGN KEY (create_user_id) REFERENCES users(id)
+, FOREIGN KEY (last_update_user_id) REFERENCES users(id)
+);
+
+
+#maintenance_request_invoices
+DROP TABLE IF EXISTS maintenance_request_invoices;
+CREATE TABLE maintenance_request_invoices
+( id varchar(36) PRIMARY KEY 
+, maintenance_request_id varchar(255)
+, supplier_id varchar(36)
+, create_date datetime
+, create_user_id varchar(36)
+, last_update_date datetime
+, last_update_user_id varchar(36)
+, status varchar(50)
+, INDEX maintenance_request_id(maintenance_request_id)
+, INDEX supplier_id(supplier_id)
+, INDEX status(status)
+, FOREIGN KEY (maintenance_request_id) REFERENCES maintenance_requests(id)
+, FOREIGN KEY (create_user_id) REFERENCES users(id)
+, FOREIGN KEY (last_update_user_id) REFERENCES users(id)
+);
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users 
+( id                                      varchar(36) NOT NULL PRIMARY KEY 
+, user_id                                 varchar(36) NOT NULL 
+, maintenance_request_group_id            varchar(36) NOT NULL 
+, INDEX user_maintenance_groups(user_id, maintenance_request_group_id)
+);
+
+
+
+#####################################################################################################
+#####################################################################################################
+#files
+#####################################################################################################
+#####################################################################################################
+
+
+#files
+DROP TABLE IF EXISTS files;
+CREATE TABLE files
+( id varchar(36)
+, entity_type varchar(100)
+, entity_id varchar(36)
+, file_name text
+, sha1hash varchar(100)
+, file_extension varchar(50)
+, mime_type varchar(255)
+, create_date datetime
+, create_user_id varchar(36)
+, last_update_date datetime
+, last_update_user_id varchar(36)
+, status varchar(50)
+, INDEX id(id)
+, INDEX entity(entity_type, entity_id)
+, INDEX status(status)
+, FOREIGN KEY (create_user_id) REFERENCES users(id)
+, FOREIGN KEY (last_update_user_id) REFERENCES users(id)
+);
+
+#comments
+DROP TABLE IF EXISTS comments;
+CREATE TABLE comments
+( id varchar(36)
+, entity_type varchar(100)
+, entity_id varchar(36)
+, comment text
+, create_date datetime
+, create_user_id varchar(36)
+, last_update_date datetime
+, last_update_user_id varchar(36)
+, status varchar(50)
+, INDEX id(id)
+, INDEX entity(entity_type, entity_id)
+, INDEX status(status)
+, FOREIGN KEY (create_user_id) REFERENCES users(id)
+, FOREIGN KEY (last_update_user_id) REFERENCES users(id)
+);

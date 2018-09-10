@@ -49,7 +49,7 @@
 				</div>
 			</form>
 			<?php
-			include('../Include/users/newUserRegistration.php');
+			include( $_SERVER['DOCUMENT_ROOT'] . '/Include/users/newUserRegistration.php');
 			?>
 		</div>
 
