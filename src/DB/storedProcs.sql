@@ -175,10 +175,12 @@ END
 ##########################################################################################################################
 ##########################################################################################################################
 DROP PROCEDURE IF EXISTS userGetLoginStats;
-CREATE PROCEDURE userGetLoginStats( IN in_user_id varchar(36))
-BEGIN
-	DECLARE total_open_maintenance_requests int;
+CREATE PROCEDURE userGetLoginStats(  IN in_user_id varchar(36)
+                                  )
+BEGIN 
+    DECLARE total_open_maintenance_requests int;
 	DECLARE total_open_maintenance_requests_for_user int;
+
 	
 	SET total_open_maintenance_requests = (SELECT count(*) 
 	                                      FROM maintenance_requests a
@@ -193,6 +195,100 @@ BEGIN
 	                                            AND b.user_id = in_user_id
 	                                      WHERE a.status = 'active'
 	                                      AND create_user_id = in_user_id); 
-	SELECT   total_open_maintenance_requests
-	       , total_open_maintenance_requests_for_user;
+	SELECT total_open_maintenance_requests
+	     , total_open_maintenance_requests_for_user;
 END;
+
+##########################################################################################################################
+##########################################################################################################################
+########################################*****Maintenance Requests*****####################################################
+##########################################################################################################################
+##########################################################################################################################
+DROP PROCEDURE IF EXISTS maintenaceRequstCreate;
+CREATE PROCEDURE maintenaceRequstCreate ( OUT out_id varchar(36)
+                                        , IN in_name                                  varchar(255)
+                                        , IN in_description                           text
+                                        , IN in_maintenance_request_group_id          varchar(36)  
+                                        , IN in_priority                              varchar(50)
+                                        , IN in_location                              varchar(255)
+                                        , IN in_request_start_date                    datetime
+                                        , IN in_create_date                           datetime
+                                        , IN in_create_user_id                        varchar(36) 
+                                        , IN in_last_update_date                      datetime 
+                                        , IN in_last_update_user_id                   varchar(36) 
+                                        , IN in_status                                varchar(50)
+                                        )
+BEGIN
+	SET out_id = uuid();
+	INSERT INTO maintenance_requests
+	( id
+    , name
+    , description
+    , maintenance_request_group_id
+    , priority
+    , location
+    , request_start_date
+    , create_date
+    , create_user_id
+    , last_update_date
+    , last_update_user_id
+    , status
+	)
+	VALUES
+	( out_id
+    , in_name
+    , in_description
+    , in_maintenance_request_group_id
+    , in_priority
+    , in_location
+    , in_request_start_date
+    , in_create_date
+    , in_create_user_id
+    , in_last_update_date
+    , in_last_update_user_id
+    , in_status
+	);
+END
+
+DROP PROCEDURE IF EXISTS maintenanceRequestGetById;
+CREATE PROCEDURE maintenanceRequestGetById ( IN in_id varchar(36)
+                                           )
+BEGIN
+	SELECT *
+	FROM maintenance_requests
+	WHERE id = in_id;
+END
+
+DROP PROCEDURE IF EXISTS maintenanceRequestGroupsCreate;
+CREATE PROCEDURE maintenanceRequestGroupCreate ( OUT out_id varchar(36)
+                                               , IN in_name varchar(46)
+                                               , IN in_description text
+                                               , IN in_create_date datetime
+                                               , IN in_create_user_id varchar(36)
+                                               , IN in_last_update_date datetime
+                                               , IN in_last_update_user_id varchar(36)
+                                               , IN in_status varchar(50)                                        
+                                        )
+BEGIN
+	SET out_id = uuid();
+	INSERT INTO maintenance_request_groups
+	( id
+    , name
+    , description
+    , create_date
+    , create_user_id
+    , last_update_date
+    , last_update_user_id
+    , status
+	)
+	VALUES
+	( out_id
+    , in_name
+    , in_description
+    , in_create_date
+    , in_create_user_id
+    , in_last_update_date
+    , in_last_update_user_id
+    , in_status
+	);
+END

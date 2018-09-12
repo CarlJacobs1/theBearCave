@@ -104,14 +104,14 @@ CREATE TABLE user_maintenance_groups
 #maintenance_request_groups
 DROP TABLE IF EXISTS maintenance_request_groups;
 CREATE TABLE maintenance_request_groups
-( id varchar(36) PRIMARY KEY 
-, name varchar(100)
-, description text
-, create_date datetime
-, create_user_id varchar(36)
-, last_update_date datetime
-, last_update_user_id varchar(36)
-, status varchar(50)
+( id                                   varchar(36) PRIMARY KEY 
+, name                                 varchar(100) NOT NULL 
+, description                          text
+, create_date                          datetime NOT NULL 
+, create_user_id                       varchar(36) NOT NULL 
+, last_update_date                     datetime NOT NULL 
+, last_update_user_id                  varchar(36) NOT NULL 
+, status                               varchar(50) NOT NULL 
 , INDEX name(name)
 , INDEX status(status)
 , FOREIGN KEY (create_user_id) REFERENCES users(id)
@@ -121,18 +121,18 @@ CREATE TABLE maintenance_request_groups
 #maintenance_requests
 DROP TABLE IF EXISTS maintenance_requests;
 CREATE TABLE maintenance_requests
-( id varchar(36) PRIMARY key
-, name varchar(255)
-, description text
-, maintenance_request_group_id varchar(36)
-, priority varchar(50)
-, location varchar(255)
-, request_start_date datetime
-, create_date datetime
-, create_user_id varchar(36)
-, last_update_date datetime
-, last_update_user_id varchar(36)
-, status varchar(50)
+( id                                    varchar(36) PRIMARY key
+, name                                  varchar(255) NOT NULL 
+, description                           text NOT NULL 
+, maintenance_request_group_id          varchar(36) NOT NULL 
+, priority                              varchar(50)
+, location                              varchar(255) NOT NULL 
+, request_start_date                    datetime NOT NULL 
+, create_date                           datetime NOT NULL 
+, create_user_id                        varchar(36) NOT NULL 
+, last_update_date                      datetime NOT NULL 
+, last_update_user_id                   varchar(36) NOT NULL 
+, status                                varchar(50) NOT NULL 
 , INDEX name(name)
 , INDEX priority(priority)
 , INDEX status(status)
@@ -145,14 +145,14 @@ CREATE TABLE maintenance_requests
 #maintenance_request_invoices
 DROP TABLE IF EXISTS maintenance_request_invoices;
 CREATE TABLE maintenance_request_invoices
-( id varchar(36) PRIMARY KEY 
-, maintenance_request_id varchar(255)
-, supplier_id varchar(36)
-, create_date datetime
-, create_user_id varchar(36)
-, last_update_date datetime
-, last_update_user_id varchar(36)
-, status varchar(50)
+( id 									varchar(36) PRIMARY KEY 
+, maintenance_request_id 				varchar(255) NOT NULL 
+, supplier_id 							varchar(36)
+, create_date 							datetime NOT NULL 
+, create_user_id 						varchar(36) NOT NULL 
+, last_update_date 						datetime NOT NULL 
+, last_update_user_id 					varchar(36) NOT NULL 
+, status 								varchar(50) NOT NULL 
 , INDEX maintenance_request_id(maintenance_request_id)
 , INDEX supplier_id(supplier_id)
 , INDEX status(status)
@@ -161,8 +161,8 @@ CREATE TABLE maintenance_request_invoices
 , FOREIGN KEY (last_update_user_id) REFERENCES users(id)
 );
 
-DROP TABLE IF EXISTS users;
-CREATE TABLE users 
+DROP TABLE IF EXISTS user_maintenance_groups;
+CREATE TABLE user_maintenance_groups 
 ( id                                      varchar(36) NOT NULL PRIMARY KEY 
 , user_id                                 varchar(36) NOT NULL 
 , maintenance_request_group_id            varchar(36) NOT NULL 
@@ -176,23 +176,21 @@ CREATE TABLE users
 #files
 #####################################################################################################
 #####################################################################################################
-
-
 #files
 DROP TABLE IF EXISTS files;
 CREATE TABLE files
-( id varchar(36)
-, entity_type varchar(100)
-, entity_id varchar(36)
-, file_name text
-, sha1hash varchar(100)
-, file_extension varchar(50)
-, mime_type varchar(255)
-, create_date datetime
-, create_user_id varchar(36)
-, last_update_date datetime
-, last_update_user_id varchar(36)
-, status varchar(50)
+( id                                      varchar(36) PRIMARY KEY 
+, entity_type                             varchar(100) NOT NULL 
+, entity_id                               varchar(36) NOT NULL 
+, file_name                               text
+, sha1hash                                varchar(100) NOT NULL 
+, file_extension                          varchar(50)
+, mime_type                               varchar(255) 
+, create_date                             datetime NOT NULL 
+, create_user_id                          varchar(36) NOT NULL 
+, last_update_date                        datetime NOT NULL 
+, last_update_user_id                     varchar(36) NOT NULL 
+, status                                  varchar(50) NOT NULL 
 , INDEX id(id)
 , INDEX entity(entity_type, entity_id)
 , INDEX status(status)
@@ -203,15 +201,15 @@ CREATE TABLE files
 #comments
 DROP TABLE IF EXISTS comments;
 CREATE TABLE comments
-( id varchar(36)
-, entity_type varchar(100)
-, entity_id varchar(36)
-, comment text
-, create_date datetime
-, create_user_id varchar(36)
-, last_update_date datetime
-, last_update_user_id varchar(36)
-, status varchar(50)
+( id                                     varchar(36) PRIMARY KEY 
+, entity_type                            varchar(100) NOT NULL 
+, entity_id                              varchar(36) NOT NULL 
+, comment                                text NOT NULL 
+, create_date                            datetime NOT NULL 
+, create_user_id                         varchar(36) NOT NULL 
+, last_update_date                       datetime NOT NULL 
+, last_update_user_id                    varchar(36) NOT NULL 
+, status                                 varchar(50) NOT NULL 
 , INDEX id(id)
 , INDEX entity(entity_type, entity_id)
 , INDEX status(status)
