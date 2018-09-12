@@ -1,5 +1,6 @@
 <?php
-require_once  $_SERVER['DOCUMENT_ROOT'] . '/Pages/Include/LoginSessionHandler.php';
+require_once  $_SERVER['DOCUMENT_ROOT'] . '/Include/LoginSessionHandler.php';
+require_once $_SERVER['DOCUMENT_ROOT'] .'/Composer/vendor/autoload.php';
 
 ?>
 <!DOCTYPE html>
@@ -36,7 +37,6 @@ require_once  $_SERVER['DOCUMENT_ROOT'] . '/Pages/Include/LoginSessionHandler.ph
 
       $userStats = new userStats();
       $userStats->getHomePageStatistics($session_id);
-      var_dump($userStats);
     ?>
     <main class="mdl-layout__content">
 
@@ -47,8 +47,8 @@ require_once  $_SERVER['DOCUMENT_ROOT'] . '/Pages/Include/LoginSessionHandler.ph
             <h2 class="mdl-card__title-text"><i class="material-icons">build</i>&nbsp;&nbsp;Maintenance</h2>
           </div>
           <div class="mdl-card__supporting-text">
-            <p>My Maintenance Requests: 0</p>
-            <p>Open Requests: 0</p>
+            <p>My Maintenance Requests: <?php echo $userStats->total_open_maintenance_requests_for_user;?></p>
+            <p>Open Requests: <?php echo $userStats->total_open_maintenance_requests;?></p>
           </div>
           <div class="mdl-card__actions">
             <span id="view_maintenance_requests">

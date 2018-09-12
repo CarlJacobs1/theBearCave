@@ -10,11 +10,12 @@ function userLogin()
 		if($ajax_request.readyState == 4){
 			$loading_spinner.setAttribute('hidden', 'hidden');
 			userLoginToast($ajax_request.responseText);
-			
-			if ($ajax_request.responseText == 'User successfully logged in') {
-				console.log(document.location.pathname);
-				window.location.href =  "home.php";
+
+			if ($ajax_request.responseText.trim() == 'User successfully logged in') {
+				console.log("In if");
+				window.location.href =  "/Pages/home.php";
 			}
+			console.log("After if");
 			
 		}
 	};
